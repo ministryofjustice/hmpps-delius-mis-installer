@@ -1,2 +1,30 @@
 ---
 # tasks file for hmpps-delius-mis-installer
+
+- name: Configure locale
+  command: localectl set-locale en_US.utf8
+  notify: restart dependent services
+  become: true
+
+- name: Turn off our ulimits
+  pam_limits:
+    limit_type: '-'
+    limit_item: "{{ item }}"
+    value: unlimited
+    domain: "{{ system_user|default('hmpps_sys_user') }}"
+  with_items:
+    - fsize
+    - memlock
+    - nofile
+    - stack
+    - cpu
+    - nproc
+    - locks
+    - msgqueue
+
+- name: Create installation directory
+  file:
+    state: directory
+    path: /srv/sap_bo
+    owner: "{{ system_user|default('hmpps_sys_user') }}"
+    mode: 0755
