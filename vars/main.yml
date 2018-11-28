@@ -3,7 +3,7 @@
 sap:
   install_dir: /srv/sap/bo
 
-artefact_path: "mis/Business Objects Linux related"
+artefact_path: "mis/Business Objects Linux related/BI4.2SP4Server_Software"
 
 system:
   ulimits:
