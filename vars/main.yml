@@ -3,6 +3,8 @@
 sap:
   install_dir: /srv/sap/bo
 
+artefact_path: "mis/Business Objects Linux related"
+
 system:
   ulimits:
     - fsize

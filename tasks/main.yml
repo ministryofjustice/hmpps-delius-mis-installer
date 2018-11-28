@@ -15,3 +15,9 @@
 
 - name: Create our directories
   include: directories.yml
+
+- name: Download our artefacts
+  include: download_artefacts.yml
+  loop_control:
+    loop_var: artefact
+  with_items: "{{ sap_artefacts }}"
