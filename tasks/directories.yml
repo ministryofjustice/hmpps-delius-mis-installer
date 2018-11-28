@@ -1,0 +1,9 @@
+---
+
+- name: Create installation directory
+  file:
+    state: directory
+    path: "{{ sap.install_dir|default('/srv/sap/bo') }}"
+    owner: "{{ system_user|default('hmpps_sys_user') }}"
+    mode: 0755
+  become: true

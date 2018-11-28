@@ -1,0 +1,16 @@
+---
+
+- name: Configure locale
+  lineinfile:
+    regexp: "^LANG=\""
+    line: 'LANG="en_US.UTF-8"'
+    path: /etc/locale.conf
+  become: true
+
+- name: Configure locale
+  lineinfile:
+    regexp: "^LC_ALL=\""
+    line: 'LC_ALL="en_US.utf8"'
+    path: /etc/locale.conf
+  become: true
+

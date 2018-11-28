@@ -1,32 +1,17 @@
 ---
 # tasks file for hmpps-delius-mis-installer
 
-- name: Configure locale
-  lineinfile:
-    regexp: "^LANG=\""
-    line: 'LANG="en_US.UTF-8"'
-    path: /etc/locale.conf
-  become: true
+- name: Verify we have all our pre-reqs
+  include: verify_packages.yml
+  loop_control:
+    loop_var: package
+  with_items: "{{ system.packages}}"
 
-- name: Turn off our ulimits
-  pam_limits:
-    limit_type: '-'
-    limit_item: "{{ item }}"
-    value: unlimited
-    domain: "{{ system_user|default('hmpps_sys_user') }}"
-  with_items:
-    - fsize
-    - memlock
-    - nofile
-    - stack
-    - cpu
-    - nproc
-    - locks
-    - msgqueue
+- name: Configure out locale tasks
+  include: locale.yml
 
-- name: Create installation directory
-  file:
-    state: directory
-    path: /srv/sap_bo
-    owner: "{{ system_user|default('hmpps_sys_user') }}"
-    mode: 0755
+- name: Set our ulimits
+  include: ulimits.yml
+
+- name: Create our directories
+  include: directories.yml
