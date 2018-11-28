@@ -6,7 +6,6 @@
     regexp: "^LANG=\""
     line: 'LANG="en_US.UTF-8"'
     path: /etc/locale.conf
-  notify: restart dependent services
   become: true
 
 - name: Turn off our ulimits
