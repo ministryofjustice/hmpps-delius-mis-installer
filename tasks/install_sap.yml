@@ -1,8 +1,22 @@
 ---
 
-#- name: Unpack our archives and remove the rar file once done
-#  command: "unrar x {{ item.dest_path }}/{{ item.name }}; \
-#            chown -R {{ default_sys_user }}:{{ default_sys_user }} {{ item.dest_path }}/{{ item.name }}; \
-#            rm -rf {{ item.dest_path }}/{{ item.name }}"
-#  with_items: "{{ sap_artefacts }}"
-#  become: true
+- name: Unpack our archives
+  command: "unrar x -y {{ item.dest_path }}/{{ item.name }}"
+  args:
+    chdir: "{{ item.dest_path }}"
+  with_items: "{{ sap_artefacts }}"
+  become: true
+  become_user: "{{ default_sys_user }}"
+
+- name: Remove our unpacked archive
+  file:
+    path: "{{ item.dest_path }}/{{ item.name }}"
+    state: absent
+  with_items: "{{ sap_artefacts }}"
+  become: true
+  become_user: "{{ default_sys_user }}"
+
+- name: Copy our response file to our temp dir
+  template:
+    src: "{{ role_path }}/templates/sap_bo.rsp.j2"
+    dest: "/tmp/sap_bo.rsp"

@@ -9,14 +9,7 @@ artefact_path: "mis/Business Objects Linux related/BI4.2SP4Server_Software"
 
 system:
   ulimits:
-    - fsize
-    - memlock
-    - nofile
     - stack
-    - cpu
-    - nproc
-    - locks
-    - msgqueue
   packages:
     - compat-libstdc++-33
     - compat-libstdc++-33-3.2.3-72.el7.i686
