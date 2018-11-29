@@ -3,13 +3,13 @@
 - block:
     - name: Set our download path
       set_fact:
-          download_path: "{{ [ artefact.dest_path|dirname, artefact.name ]|join('/') }}"
+          download_path: "{{ [ artefact.dest_path, artefact.name ]|join('/') }}"
   when: artefact.dest_path|default(false)
 
 - block:
     - name: Set our download path
       set_fact:
-          download_path: "{{ [mount_point, 'software',  artefact.name]|join('/')  }}"
+          download_path: "{{ [mount_point, 'sap',  artefact.name]|join('/')  }}"
   when: artefact.dest_path|default(false) == false
 
 - name: Print out our download path
@@ -25,9 +25,9 @@
 
 - name: Configure our owner and permissions
   file:
-    path: "{{ artefact.dest_path|default(mount_point + '/software/' + artefact.name)|dirname }}"
+    path: "{{ artefact.dest_path|default([mount_point, 'sap',  artefact.name]|join('/'))|dirname }}"
     mode: "{{ artefact.mode|default('0775') }}"
-    owner: "{{ artefact.owner|default(rdbms_service_user.name) }}"
-    group:  "{{ artefact.group|default(rdbms_service_user.group) }}"
+    owner: "{{ artefact.owner|default('hmpps_sys_user') }}"
+    group:  "{{ artefact.group|default('hmpps_sys_user') }}"
     state: directory
     recurse: true

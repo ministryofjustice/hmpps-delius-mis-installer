@@ -1,7 +1,9 @@
 ---
+mount_point: /srv
 
 sap:
   install_dir: /srv/sap/bo
+  installer_dir: /srv/sap/installers
 
 artefact_path: "mis/Business Objects Linux related/BI4.2SP4Server_Software"
 

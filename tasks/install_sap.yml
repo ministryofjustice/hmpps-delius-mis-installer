@@ -1,0 +1,11 @@
+---
+#
+#- name: Unpack our archives
+#  unarchive:
+#    remote_src: true
+#    src: "{{ item.dest_path }}/{{ item.name }}"
+#    dest: "{{ item.dest_path }}"
+#    owner: "{{ default_sys_user }}"
+#  with_items: "{{ sap_artefacts }}"
+#  become: true
+#  ingore_errors: true #Currently this fails as I'm not sure what we have been given

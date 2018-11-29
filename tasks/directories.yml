@@ -7,3 +7,11 @@
     owner: "{{ system_user|default('hmpps_sys_user') }}"
     mode: 0755
   become: true
+
+- name: Create installer directory
+  file:
+    state: directory
+    path: "{{ sap.installer_dir|default('/srv/sap/installers') }}"
+    owner: "{{ system_user|default('hmpps_sys_user') }}"
+    mode: 0755
+  become: true

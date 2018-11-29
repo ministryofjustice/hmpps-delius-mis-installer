@@ -21,3 +21,6 @@
   loop_control:
     loop_var: artefact
   with_items: "{{ sap_artefacts }}"
+
+- name: Install SAP BO
+  include: install_sap.yml
