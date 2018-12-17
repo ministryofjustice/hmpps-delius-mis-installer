@@ -6,17 +6,31 @@
     chdir: "{{ item.dest_path }}"
   with_items: "{{ sap_artefacts }}"
   when: item.name.lower().find('.rar') > 0
-
   become: true
   become_user: "{{ default_sys_user }}"
 
-#- name: Remove our unpacked archive
-#  file:
-#    path: "{{ item.dest_path }}/{{ item.name }}"
-#    state: absent
-#  with_items: "{{ sap_artefacts }}"
-#  become: true
-#  become_user: "{{ default_sys_user }}"
+- name: Remove our unpacked archive
+  file:
+    path: "{{ item.dest_path }}/{{ item.name }}"
+    state: absent
+  with_items: "{{ sap_artefacts }}"
+  become: true
+  become_user: "{{ default_sys_user }}"
+
+- name: Unpack our BIPLATFORM.tgz file
+  unarchive:
+    src: "{{ sap.installer_dir }}/BIPLATFORM.tgz"
+    dest: "{{ sap.installer_dir }}/biplatform"
+    remote_src: true
+  become: true
+  become_user: "{{ default_sys_user }}"
+
+- name: Remove our BIPLATFORM.tgz file
+  file:
+    path: "{{ sap.installer_dir }}/BIPLATFORM.tgz"
+    state: absent
+  become: true
+  become_user: "{{ default_sys_user }}"
 
 - name: Copy our response file to our temp dir
   template:
