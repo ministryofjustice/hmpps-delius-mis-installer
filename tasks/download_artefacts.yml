@@ -19,7 +19,7 @@
 - name: Get our packages from S3
   aws_s3:
     bucket: "{{ artefact_bucket }}"
-    object: "/{{ artefact_path }}/{{ artefact.name }}"
+    object: "/{{ artefact_path }}/{{ artefact.folder }}/{{ artefact.name }}"
     dest: "{{ download_path }}"
     mode: get
 
