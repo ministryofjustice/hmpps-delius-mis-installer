@@ -1,13 +1,15 @@
 ---
 
-#- name: Unpack our archives
-#  command: "unrar x -y {{ item.dest_path }}/{{ item.name }}"
-#  args:
-#    chdir: "{{ item.dest_path }}"
-#  with_items: "{{ sap_artefacts | selectattr('name', 'match', '\.rar') }}"
-#  become: true
-#  become_user: "{{ default_sys_user }}"
-#
+- name: Unpack our archives
+  command: "unrar x -y {{ item.dest_path }}/{{ item.name }}"
+  args:
+    chdir: "{{ item.dest_path }}"
+  with_items: "{{ sap_artefacts }}"
+  when: item.name.lower().find('.rar') > 0
+
+  become: true
+  become_user: "{{ default_sys_user }}"
+
 #- name: Remove our unpacked archive
 #  file:
 #    path: "{{ item.dest_path }}/{{ item.name }}"
