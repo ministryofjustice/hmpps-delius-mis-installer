@@ -1,20 +1,20 @@
 ---
 
-- name: Unpack our archives
-  command: "unrar x -y {{ item.dest_path }}/{{ item.name }}"
-  args:
-    chdir: "{{ item.dest_path }}"
-  with_items: "{{ sap_artefacts | selectattr('name', 'match', '\.rar') }}"
-  become: true
-  become_user: "{{ default_sys_user }}"
-
-- name: Remove our unpacked archive
-  file:
-    path: "{{ item.dest_path }}/{{ item.name }}"
-    state: absent
-  with_items: "{{ sap_artefacts }}"
-  become: true
-  become_user: "{{ default_sys_user }}"
+#- name: Unpack our archives
+#  command: "unrar x -y {{ item.dest_path }}/{{ item.name }}"
+#  args:
+#    chdir: "{{ item.dest_path }}"
+#  with_items: "{{ sap_artefacts | selectattr('name', 'match', '\.rar') }}"
+#  become: true
+#  become_user: "{{ default_sys_user }}"
+#
+#- name: Remove our unpacked archive
+#  file:
+#    path: "{{ item.dest_path }}/{{ item.name }}"
+#    state: absent
+#  with_items: "{{ sap_artefacts }}"
+#  become: true
+#  become_user: "{{ default_sys_user }}"
 
 - name: Copy our response file to our temp dir
   template:
