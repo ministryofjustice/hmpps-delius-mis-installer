@@ -4,7 +4,7 @@
   command: "unrar x -y {{ item.dest_path }}/{{ item.name }}"
   args:
     chdir: "{{ item.dest_path }}"
-  with_items: "{{ sap_artefacts }}"
+  with_items: "{{ sap_artefacts | selectattr('name', 'match', '\.rar') }}"
   become: true
   become_user: "{{ default_sys_user }}"
 
