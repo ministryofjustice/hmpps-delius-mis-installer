@@ -5,7 +5,7 @@ sap:
   install_dir: /srv/sap/bo
   installer_dir: /srv/sap/installers
 
-artefact_path: "mis/Business Objects Linux related/"
+artefact_path: "mis/Business Objects Linux related"
 
 system:
   ulimits:
