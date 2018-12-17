@@ -1,0 +1,10 @@
+---
+
+- name: Turn off our ulimits
+  pam_limits:
+    limit_type: '-'
+    limit_item: "{{ item }}"
+    value: unlimited
+    domain: "{{ system_user|default('hmpps_sys_user') }}"
+  with_items: "{{ system.ulimits|default(['stack']) }}"
+  become: true

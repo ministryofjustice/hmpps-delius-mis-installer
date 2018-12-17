@@ -1,0 +1,26 @@
+---
+# tasks file for hmpps-delius-mis-installer
+
+- name: Verify we have all our pre-reqs
+  include: verify_packages.yml
+  loop_control:
+    loop_var: package
+  with_items: "{{ system.packages}}"
+
+- name: Configure out locale tasks
+  include: locale.yml
+
+- name: Set our ulimits
+  include: ulimits.yml
+
+- name: Create our directories
+  include: directories.yml
+
+- name: Download our artefacts
+  include: download_artefacts.yml
+  loop_control:
+    loop_var: artefact
+  with_items: "{{ sap_artefacts }}"
+
+- name: Install SAP BO
+  include: install_sap.yml

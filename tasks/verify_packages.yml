@@ -1,0 +1,11 @@
+---
+
+- name: Check if rpms are already installed
+  yum:
+    list: "{{ package }}"
+  register: yum_list
+
+- name: "Fail if {{ package }} is not installed"
+  fail:
+    msg: "{{ package }} is not installed"
+  when: yum_list.results | selectattr("yumstate", "match", "installed") | list | length == 0

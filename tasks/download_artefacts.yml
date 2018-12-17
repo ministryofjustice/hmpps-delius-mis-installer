@@ -1,0 +1,37 @@
+---
+
+- block:
+    - name: Set our download path
+      set_fact:
+          download_path: "{{ [ artefact.dest_path, artefact.name ]|join('/') }}"
+  when: artefact.dest_path|default(false)
+
+- block:
+    - name: Set our download path
+      set_fact:
+          download_path: "{{ [mount_point, 'sap',  artefact.name]|join('/')  }}"
+  when: artefact.dest_path|default(false) == false
+
+- name: Print out our download path
+  debug:
+    msg: "{{ download_path }}"
+
+- name: Print our artefact path
+  debug:
+    msg: "s3://{{ artefact_bucket}}/{{ artefact_path }}/{{ artefact.folder }}/{{ artefact.name }}"
+
+- name: Get our packages from S3
+  aws_s3:
+    bucket: "{{ artefact_bucket }}"
+    object: "/{{ artefact_path }}/{{ artefact.folder }}/{{ artefact.name }}"
+    dest: "{{ download_path }}"
+    mode: get
+
+- name: Configure our owner and permissions
+  file:
+    path: "{{ artefact.dest_path|default([mount_point, 'sap',  artefact.name]|join('/'))|dirname }}"
+    mode: "{{ artefact.mode|default('0775') }}"
+    owner: "{{ artefact.owner|default('hmpps_sys_user') }}"
+    group:  "{{ artefact.group|default('hmpps_sys_user') }}"
+    state: directory
+    recurse: true
