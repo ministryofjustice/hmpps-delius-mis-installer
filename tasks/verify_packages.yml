@@ -1,6 +1,6 @@
 ---
 
-- name: Check if rpms are already installed
+- name: "Check if {{ package }} is already installed"
   yum:
     list: "{{ package }}"
   register: yum_list

@@ -7,14 +7,3 @@ sap:
 
 artefact_path: "mis/Business Objects Linux related"
 
-system:
-  ulimits:
-    - stack
-  packages:
-    - compat-libstdc++-33
-    - compat-libstdc++-33-3.2.3-72.el7.i686
-    - compat-libstdc++-33-3.2.3-72.el7.x86_64
-    - glibc.i686
-    - libstdc++.i686
-    - libX11-1.6.3-2.el7.i686
-

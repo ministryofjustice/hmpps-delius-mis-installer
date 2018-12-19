@@ -1,10 +1,22 @@
 ---
 
-- name: Turn off our ulimits
-  pam_limits:
-    limit_type: '-'
-    limit_item: "{{ item }}"
-    value: unlimited
-    domain: "{{ system_user|default('hmpps_sys_user') }}"
-  with_items: "{{ system.ulimits|default(['stack']) }}"
-  become: true
+- block:
+    - name: Turn off our ulimits
+      pam_limits:
+        limit_type: "{{ item.limit_type|default('-') }}"
+        limit_item: "{{ item.name }}"
+        value: "{{ item.value|default('unlimited') }}"
+        domain: "{{ system.system_user|default('hmpps_sys_user') }}"
+      with_items: "{{ system.ulimits }}"
+      become: true
+  when: system.ulimits is defined
+
+- block:
+  - name: Set some specific limits
+    sysctl:
+      name: "{{ item.name }}"
+      value: "{{ item.value }}"
+      state: present
+    with_items: "{{ system.sysctl }}"
+    become: true
+  when: system.sysctl is defined
