@@ -32,6 +32,11 @@
   become: true
   become_user: "{{ default_sys_user }}"
 
+- name: Retrieve our product key from ssm
+  set_fact:
+    sap_product_key: "{{ lookup('aws_ssm', product_key ) }}"
+  no_log: true
+
 - name: Copy our response file to our temp dir
   template:
     src: "{{ role_path }}/templates/sap_bo.rsp.j2"
