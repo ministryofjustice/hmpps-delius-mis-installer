@@ -32,6 +32,10 @@
   become: true
   become_user: "{{ default_sys_user }}"
 
+- name: Print out our product key path
+  debug:
+    msg: "{{ product_key }}"
+
 - name: Retrieve our product key from ssm
   set_fact:
     sap_product_key: "{{ lookup('aws_ssm', product_key ) }}"
