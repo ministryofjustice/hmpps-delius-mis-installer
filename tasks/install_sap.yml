@@ -34,7 +34,7 @@
 
 - name: Retrieve our product key from ssm
   set_fact:
-    sap_product_key: "{{ lookup('aws_ssm', product_key|trim(), decrypt=True ) }}"
+    sap_product_key: "{{ lookup('aws_ssm', product_key|trim(), decrypt=True, region='eu-west-2' ) }}"
 
 - name: Copy our response file to our temp dir
   template:
