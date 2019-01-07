@@ -38,8 +38,7 @@
 
 - name: Retrieve our product key from ssm
   set_fact:
-    sap_product_key: "{{ lookup('aws_ssm', product_key ) }}"
-  no_log: true
+    sap_product_key: "{{ lookup('aws_ssm', product_key|trim(), decrypt=True ) }}"
 
 - name: Copy our response file to our temp dir
   template:

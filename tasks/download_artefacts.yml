@@ -12,14 +12,6 @@
           download_path: "{{ [mount_point, 'sap',  artefact.name]|join('/')  }}"
   when: artefact.dest_path|default(false) == false
 
-- name: Print out our download path
-  debug:
-    msg: "{{ download_path }}"
-
-- name: Print our artefact path
-  debug:
-    msg: "s3://{{ artefact_bucket}}/{{ artefact_path }}/{{ artefact.folder }}/{{ artefact.name }}"
-
 - name: Get our packages from S3
   aws_s3:
     bucket: "{{ artefact_bucket }}"

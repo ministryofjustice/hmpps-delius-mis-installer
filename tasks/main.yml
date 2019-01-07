@@ -1,6 +1,14 @@
 ---
 # tasks file for hmpps-delius-mis-installer
 
+- name: Print out our product key path
+  debug:
+    msg: "{{ product_key }}"
+
+- name: Retrieve our product key from ssm
+  set_fact:
+    sap_product_key: "{{ lookup('aws_ssm', product_key|trim(), decrypt=True ) }}"
+
 - name: Verify we have all our pre-reqs
   include: verify_packages.yml
   loop_control:
