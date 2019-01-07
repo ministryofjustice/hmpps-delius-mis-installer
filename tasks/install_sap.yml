@@ -48,8 +48,8 @@
   become: true
   become_user: hmpps_sys_user
 
-- name: Remove our installer
-  file:
-    path: /srv/sap/installers/51052102
-    state: absent
-  become: true
+#- name: Remove our installer
+#  file:
+#    path: /srv/sap/installers/51052102
+#    state: absent
+#  become: true
