@@ -40,3 +40,16 @@
   template:
     src: "{{ role_path }}/templates/sap_bo.rsp.j2"
     dest: "/tmp/sap_bo.rsp"
+
+- name: Install SAP
+  command: ./setup.sh -r /tmp/sap_bo.rsp
+  args:
+    chdir: /srv/sap/installers/51052102/DATA_UNITS/BusinessObjectsServer_lnx
+  become: true
+  become_user: hmpps_sys_user
+
+- name: Remove our installer
+  file:
+    path: /srv/sap/installers/51052102
+    state: absent
+  become: true
