@@ -5,7 +5,7 @@ chooseintroscopeintegration=nointegrate
 choosesmdintegration=nointegrate
 
 ### CMS cluster key
-clusterkey={{ sap_cluster_key|default('') }}
+clusterkey={{ sap_cluster_key|default('Password1') }}
 
 ### CMS connection port
 cmsport={{ sap.cms_port|default(6400) }}
@@ -14,16 +14,16 @@ cmsport={{ sap.cms_port|default(6400) }}
 enableservers={{ sap.enableservers|default(0) }}
 
 ### Existing CMS DB password
-existingcmsdbpassword={{ sap_cms_password|default('') }}
+existingcmsdbpassword={{ sap_cms_password|default('Password1') }}
 
 ### Existing CMS DB reset flag: 0 or 1
 existingcmsdbreset={{ sap.existingcmsdbreset|default(0) }}
 
 ### Existing CMS DB server
-existingcmsdbserver={{ sap.existing_cms_db_server|default('') }}
+existingcmsdbserver={{ sap.existing_cms_db_server|default('ndl-bdb-poc:1521/BOE') }}
 
 ### Existing CMS DB user name
-existingcmsdbuser={{ sap.existing_cms_db_user|default('') }}
+existingcmsdbuser={{ sap.existing_cms_db_user|default('B14CMSAuto') }}
 
 ### Installation Directory
 InstallDir={{ sap.install_dir }}/
@@ -35,7 +35,7 @@ installtype=custom
 lcmname=LCM_repository
 
 ### LCM password
-lcmpassword={{ sap_lcm_password|default('') }}
+lcmpassword={{ sap_lcm_password|default('Password1') }}
 
 ### LCM port
 lcmport=3690
@@ -44,7 +44,7 @@ lcmport=3690
 lcmusername={{ sap.lcm_user|default('LCM') }}
 
 ### Choose install mode: new, expand
-neworexpandinstall=expand
+neworexpandinstall={{ sap.install_mode|default('new') }}
 
 ### Product Keycode
 ProductKey={{ sap_product_key|default('XXXXX-XXXXXX-XXXXXX-XXXX') }}
@@ -53,7 +53,7 @@ ProductKey={{ sap_product_key|default('XXXXX-XXXXXX-XXXXXX-XXXX') }}
 remotecmsadminname={{ sap.remote_cms_admin|default('Administrator') }}
 
 ### Remote CMS administrator password
-remotecmsadminpassword={{ sap_remote_cms_password|default('') }}
+remotecmsadminpassword={{ sap_remote_cms_password|default('Password1') }}
 
 ### Remote CMS name
 remotecmsname={{ sap.remote_cms_name|default('ndl-bcs-auto-001') }}
