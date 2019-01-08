@@ -22,5 +22,8 @@
     loop_var: artefact
   with_items: "{{ sap_artefacts }}"
 
+- name: Install mysql
+  include: install_mysql.yml
+
 - name: Install SAP BO
   include: install_sap.yml
