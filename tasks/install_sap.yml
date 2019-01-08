@@ -38,11 +38,11 @@
 
 - name: Copy our response file to our temp dir
   template:
-    src: "{{ role_path }}/templates/sap_bo.rsp.j2"
-    dest: "/tmp/sap_bo.rsp"
+    src: "{{ role_path }}/templates/sap_bo.ini.j2"
+    dest: "/tmp/sap_bo.ini"
 
 - name: Install SAP
-  command: ./setup.sh -r /tmp/sap_bo.rsp
+  command: ./setup.sh -r /tmp/sap_bo.ini
   args:
     chdir: /srv/sap/installers/51052102/DATA_UNITS/BusinessObjectsServer_lnx
   become: true
