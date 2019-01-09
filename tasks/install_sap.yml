@@ -42,9 +42,11 @@
     dest: "/tmp/sap_bo.ini"
 
 - name: Install SAP
-  command: LD_LIBRARY_PATH=/usr/lib64/mysql/ ./setup.sh -r /tmp/sap_bo.ini
+  shell: ./setup.sh -r /tmp/sap_bo.ini
   args:
     chdir: /srv/sap/installers/51052102/DATA_UNITS/BusinessObjectsServer_lnx
+  environment:
+    LD_LIBRARY_PATH: /usr/lib64/mysql/
   become: true
   become_user: hmpps_sys_user
 
