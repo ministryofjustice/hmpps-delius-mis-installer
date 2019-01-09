@@ -31,6 +31,8 @@ ExistingCMSDBServer={{ sap.existing_cms_db_server|default('localhost') }}
 ### Existing CMS DB user name
 ExistingCMSDBUser={{ sap.existing_cms_db_user|default('cms_user') }}
 
+existingcmsdbdatabase={{ sap.existing_cms_db_name|default('CMS') }}
+
 ### Installation Directory
 InstallDir={{ sap.install_dir }}/
 
@@ -95,3 +97,21 @@ UsingCMSDBType={{ sap.cms_database_type|default('mysql') }}
 WACSPort=6405
 
 features=JavaWebApps1,MobileServers,MobileAddon,MobileServices,IntegratedTomcat,WebTier,CMS,FRS,PlatformServers.EventServer,PlatformServers.WebAppContainerService,AdaptiveProcessingServer,AdaptiveJobServer,Platform.RestWebService,Platform.Action.Framework.backend,Subversion,ConnectionProcService,ConnectionServices,DataFederatorQueryService,DataFederatorServices,MultidimensionalAnalysisServices,BExWebApplicationsService,AdvancedAnalysisServices,CrystalReportsProcServices,CrystalReportSchedulingServices,CrystalReport2011ProcServices,CrystalReport2011SchedulingServices,CrystalReportsServers,WebIProcServer,WebISchedulingServices,WebIServers,XcelsiusServers,BWPublisherServer,IntegrationServers,UpgradeManager,MultitenancyManager,AdministratorTools,BOE64bitNETSDK,SL_SDK_java,SL_SDKSamples,SL_SDK,DataAccess.DataFederator,DataAccess.HPVertica,DataAccess.MySQL,DataAccess.GenericJDBC,DataAccess.GenericOLEDB,DataAccess.OptionalDataDirectODBC.DataDirect7.1,DataAccess.SAPHANA,DataAccess.Salesforce,DataAccess.Netezza,DataAccess.Microsoft_AnalyticalServices,DataAccess.MicrosoftExchange,DataAccess.MicrosoftOutlook,DataAccess.Microsoft_SQLServer,DataAccess.Microsoft_Access,DataAccess.Ingres,DataAccess.Greenplum,DataAccess.PostgreSQL,DataAccess.Progress,DataAccess.IBMDB2,DataAccess.Informix,DataAccess.Oracle,DataAccess.Sybase,DataAccess.Teradata,DataAccess.SAPBW,DataAccess.SAPBW64,DataAccess.SAPERP,DataAccess.XMLWebServices,DataAccess.OData,DataAccess.SAP,DataAccess.PersonalFiles,DataAccess.JavaBean,DataAccess.OpenConnectivity,DataAccess.HadoopHive,DataAccess.Amazon,DataAccess.Spark,DataAccess.Hortonworks,DataAccess.Essbase,DataAccess.Peoplesoft,DataAccess.JDEdwards,DataAccess.Siebel,DataAccess.OracleEBS,DataAccess.Universe,DataAccess.MyCube,DataAccess.XML,DataAccess.ADO.NET,DataAccess.COMData,DataAccess.DataSet,DataAccess.SymantecACT,DataAccess.BDE,DataAccess.CDO,DataAccess.FieldDefinitions,DataAccess.FileSystem,DataAccess.NTEventLog,DataAccess.WebActivityLog,DataAccess.Btrieve,DataAccess.dBase.DataDirect7.1,DataAccess.UWSC,DataAccess.CMSDBDriver,Samples
+
+
+### Existing Auditing DB database
+existingauditingdbdatabase={{ sap.audit_db_name|default('CMS_AUDIT') }};
+
+### Existing Auditing DB password
+existingauditingdbpassword={{ sap_cms_password|default('Poc12345') }}
+
+### Existing Auditing DB port
+existingauditingdbport=3306
+
+### Existing Auditing DB server
+existingauditingdbserver={{ sap.existing_cms_db_server|default('localhost') }}
+
+### Existing Auditing DB user name
+existingauditingdbuser={{ sap.existing_cms_db_user|default('cms_user') }}
+
+UsingAuditDBType=mysql

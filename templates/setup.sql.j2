@@ -2,6 +2,7 @@ FLUSH PRIVILEGES;
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '';
 FLUSH PRIVILEGES;
 CREATE DATABASE {{ sap.cms_db_name|default('CMS') }};
-USE {{ sap.cms_db_name|default('CMS') }};
+CREATE DATABASE {{ sap.audit_db_name|default('CMS_AUDIT') }};
 CREATE USER 'cms_user'@'localhost' IDENTIFIED WITH mysql_native_password BY '{{ sap.cms_password|default('Poc12345') }}';
 GRANT ALL ON {{ sap.cms_db_name|default('CMS') }}.* TO 'cms_user'@'localhost';
+GRANT ALL ON {{ sap.audit_db_name|default('CMS_AUDIT') }}.* TO 'cms_user'@'localhost';
