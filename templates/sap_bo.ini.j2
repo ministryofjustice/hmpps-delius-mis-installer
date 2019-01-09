@@ -17,16 +17,19 @@ CMSPassword={{ sap_cms_password|default('Poc12345') }}
 EnableServers={{ sap.enableservers|default(0) }}
 
 ### Existing CMS DB password
-ExistingCMSDBPassword={{ sap_cms_password|default('Poc12345') }}
+existingcmsdbpassword={{ sap_cms_password|default('Poc12345') }}
+
+### Existing CMS DB port
+existingcmsdbport=3306
 
 ### Existing CMS DB reset flag: 0 or 1
-ExistingCMSDBReset={{ sap.existingCMSDBreset|default(0) }}
+ExistingCMSDBReset={{ sap.existing_cms_db_reset|default(1) }}
 
 ### Existing CMS DB server
-ExistingCMSDBServer={{ sap.existing_cms_db_server|default('ndl-bdb-poc:1521/BOE') }}
+ExistingCMSDBServer={{ sap.existing_cms_db_server|default('localhost') }}
 
 ### Existing CMS DB user name
-ExistingCMSDBUser={{ sap.existing_cms_db_user|default('B14CMSAuto') }}
+ExistingCMSDBUser={{ sap.existing_cms_db_user|default('cms_user') }}
 
 ### Installation Directory
 InstallDir={{ sap.install_dir }}/
@@ -52,20 +55,20 @@ NewOrExpandInstall={{ sap.install_mode|default('new') }}
 ### Product Keycode
 ProductKey={{ sap_product_key|default('XXXXX-XXXXXX-XXXXXX-XXXX') }}
 
-### Remote CMS administrator name
-RemoteCMSAdminName={{ sap.remote_cms_admin|default('Administrator') }}
+#### Remote CMS administrator name
+# RemoteCMSAdminName={{ sap.remote_cms_admin|default('Administrator') }}
 
 ### Remote CMS administrator password
-RemoteCMSAdminPassword={{ sap_remote_cms_password|default('Poc12345') }}
+# RemoteCMSAdminPassword={{ sap_remote_cms_password|default('Poc12345') }}
 
 ### Remote CMS name
-RemoteCMSName={{ sap.remote_cms_name|default('ndl-bcs-auto-001') }}
+# RemoteCMSName={{ sap.remote_cms_name|default('ndl-bcs-auto-001') }}
 
 ### Remote CMS port
-RemoteCMSPort=6400
+# RemoteCMSPort=6400
 
 ### Language Packs Selected to Install
-SetupUILanguage=ar;cs;da;nl;en;fi;fr;de;he;hu;it;ja;kk;ko;nb;pl;pt;ro;ru;zh_cn;sk;sl;es;sv;th;zh_tw;tr;uk
+SelectedLanguagePacks=ar;cs;da;nl;en;fi;fr;de;he;hu;it;ja;kk;ko;nb;pl;pt;ro;ru;zh_cn;sk;sl;es;sv;th;zh_tw;tr;uk
 
 ### Setup UI Language
 SetupUILanguage=en
@@ -86,7 +89,7 @@ TomcatRedirectPort=8443
 TomcatShutdownPort=8005
 
 ### CMS Database Type
-UsingCMSDBType=oracle
+UsingCMSDBType={{ sap.cms_database_type|default('mysql') }}
 
 ### WACS port
 WACSPort=6405

@@ -60,3 +60,13 @@
     name: "/tmp/mysql*"
     state: absent
   become: true
+
+- name: Add path to our sys user bash_profile
+  lineinfile:
+    path: /home/hmpps_sys_user/.bash_profile
+    insertafter: EOF
+    state: present
+    line: |
+          LD_LIBRARY_PATH=/usr/lib64/mysql/
+
+          export LD_LIBRARY
