@@ -35,21 +35,25 @@
     - "mysql-community-devel-{{ mysql_version }}.el7.x86_64.rpm"
   become: true
 
-- name: Start mysqld
-  service:
-    name: mysqld
-    state: started
+- name: Start mysqld in safe mode
+  shell: 'systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"; systemctl start mysqld'
   become: true
+  warn: false
 
-- name: Install our mysql-python library
-  pip:
-    name: mysql-python
+- name: Create our sql template
+  template:
+    src: "{{ role_path }}/templates/setup.sql.j2"
+    dest: /tmp/setup.sql
+
+- name: Execute our setup script
+  shell: "mysql < /tmp/setup.sql"
   become: true
+  warn: false
 
-#- name: Create our cms database
-#  mysql_db:
-#    name: "{{ sap.local_cms_dbname|default('CMS') }}"
-#  become: true
+- name: Restart mysqld in normal mode
+  shell: 'systemctl set-environment MYSQLD_OPTS=""; systemctl restart mysqld'
+  become: true
+  warn: false
 
 - name: Remove the downloaded files
   file:
