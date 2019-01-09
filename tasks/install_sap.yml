@@ -42,7 +42,7 @@
     dest: "/tmp/sap_bo.ini"
 
 - name: Install SAP
-  command: ./setup.sh -r /tmp/sap_bo.ini
+  command: LD_LIBRARY_PATH=/usr/lib64/mysql/ ./setup.sh -r /tmp/sap_bo.ini
   args:
     chdir: /srv/sap/installers/51052102/DATA_UNITS/BusinessObjectsServer_lnx
   become: true
