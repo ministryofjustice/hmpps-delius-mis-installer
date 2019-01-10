@@ -32,7 +32,26 @@
   become: true
   become_user: "{{ default_sys_user }}"
 
+- name: Retrieve our product key from ssm
+  set_fact:
+    sap_product_key: "{{ lookup('aws_ssm', product_key|trim(), decrypt=True, region='eu-west-2' ) }}"
+
 - name: Copy our response file to our temp dir
   template:
-    src: "{{ role_path }}/templates/sap_bo.rsp.j2"
-    dest: "/tmp/sap_bo.rsp"
+    src: "{{ role_path }}/templates/sap_bo.ini.j2"
+    dest: "/tmp/sap_bo.ini"
+
+- name: Install SAP
+  shell: ./setup.sh -r /tmp/sap_bo.ini
+  args:
+    chdir: /srv/sap/installers/51052102/DATA_UNITS/BusinessObjectsServer_lnx
+  environment:
+    LD_LIBRARY_PATH: /usr/lib64/mysql/
+  become: true
+  become_user: hmpps_sys_user
+
+#- name: Remove our installer
+#  file:
+#    path: /srv/sap/installers/51052102
+#    state: absent
+#  become: true

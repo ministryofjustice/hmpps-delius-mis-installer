@@ -1,0 +1,73 @@
+---
+
+#We install mysql ce as a workaround to build the ami
+
+- name: Declare our mysql version
+  set_fact:
+    mysql_version: "5.7.24-1"
+
+- name: Get our mysqld binaries
+  get_url:
+    url: "https://cdn.mysql.com/Downloads/MySQL-5.7/mysql-{{ mysql_version }}.el7.x86_64.rpm-bundle.tar"
+    dest: "/tmp/mysql-{{ mysql_version }}.el7.x86_64.rpm-bundle.tar"
+
+- name: Uncompress our installers
+  unarchive:
+    src: "/tmp/mysql-{{ mysql_version }}.el7.x86_64.rpm-bundle.tar"
+    dest: /tmp
+
+- name: Remove mariadb libs
+  yum:
+    name: "mariadb*"
+    state: absent
+  become: true
+
+- name: Install mysql and client
+  yum:
+    name: "/tmp/{{ item }}"
+    state: present
+  with_items:
+    - "mysql-community-common-{{ mysql_version }}.el7.x86_64.rpm"
+    - "mysql-community-libs-{{ mysql_version }}.el7.x86_64.rpm"
+    - "mysql-community-libs-compat-{{ mysql_version }}.el7.x86_64.rpm"
+    - "mysql-community-server-{{ mysql_version }}.el7.x86_64.rpm"
+    - "mysql-community-client-{{ mysql_version }}.el7.x86_64.rpm"
+    - "mysql-community-devel-{{ mysql_version }}.el7.x86_64.rpm"
+  become: true
+
+- name: Start mysqld in safe mode
+  shell: 'systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"; systemctl start mysqld'
+  become: true
+  warn: false
+
+- name: Create our sql template
+  template:
+    src: "{{ role_path }}/templates/setup.sql.j2"
+    dest: /tmp/setup.sql
+
+- name: Execute our setup script
+  shell: "mysql < /tmp/setup.sql"
+  become: true
+  warn: false
+
+- name: Restart mysqld in normal mode
+  shell: 'systemctl set-environment MYSQLD_OPTS=""; systemctl restart mysqld'
+  become: true
+  warn: false
+
+- name: Remove the downloaded files
+  file:
+    name: "/tmp/mysql*"
+    state: absent
+  become: true
+
+- name: Add path to our sys user bash_profile
+  lineinfile:
+    path: /home/hmpps_sys_user/.bash_profile
+    insertafter: EOF
+    state: present
+    line: |
+          LD_LIBRARY_PATH=/usr/lib64/mysql/
+
+          export LD_LIBRARY_PATH
+
